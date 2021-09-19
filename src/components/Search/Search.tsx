@@ -1,17 +1,24 @@
-import { FormEvent, ReactNode, useState,  } from "react";
+import { FormEvent, useState } from "react";
 
 import { Button } from "../Button";
-import { Label, Radio } from "../Radio";
+import { RadioWithLabel } from "../Radio";
 import { Textbox } from "../Textbox";
 
+interface SearchEvent {
+    search: string, 
+    year: string, 
+    type: string
+}
 interface Props {
-    onSearch: ({ search, year, type }:{ search: string, year: string, type: string }) => void;
+    onSearch: (event: SearchEvent) => void;
 }
 
 const Search = ({ onSearch }: Props) => {
     const [search, setSearch] = useState<string>('');
     const [year, setYear] = useState<string>('');
     const [type, setType] = useState<string>('');
+
+    console.log(type);
 
     const formSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -34,18 +41,21 @@ const Search = ({ onSearch }: Props) => {
             <RadioWithLabel name="type" 
                             id="movie" 
                             value="movie"
+                            selected={ 'movie' === type }
                             onChange={ e => setType(e) }>
                 Movie
             </RadioWithLabel>
             <RadioWithLabel name="type" 
                             id="series" 
                             value="series"
+                            selected={ 'series' === type }
                             onChange={ e => setType(e) }>
                 Series
             </RadioWithLabel>
             <RadioWithLabel name="type" 
                             id="episode" 
                             value="episode"
+                            selected={ 'episode' === type }
                             onChange={ e => setType(e) }>
                 Episode
             </RadioWithLabel>
@@ -55,26 +65,6 @@ const Search = ({ onSearch }: Props) => {
     )
 }
 
+
+
 export { Search }
-
-interface RadioProps {
-    id: string, 
-    name: string, 
-    value: string, 
-    children: ReactNode,
-    onChange: (value: string) => void
-}
-
-const RadioWithLabel = ({id, name, value, children, onChange }: RadioProps) => {
-    return (
-        <>
-            <Radio name={name} 
-                   id={id} 
-                   value={value}
-                   onChange={ e => onChange(e.target.value)}/>
-            <Label htmlFor={id}>
-                {children}
-            </Label>
-        </>
-    );
-}

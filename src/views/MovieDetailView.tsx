@@ -19,7 +19,7 @@ const DetailView = () => {
         <div>
             <div>
                 <div>
-                    <Image src={movie?.Poster}></Image>
+                    <Image src={movie?.Poster} alt="Poster not found"></Image>
                 </div>
                 <div>
                     <div>{movie?.Title}</div>
