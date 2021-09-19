@@ -3,7 +3,7 @@ import { useState } from "react";
 import { MovieList, Search } from "../components";
 import { searchMovies, Movie } from "../services";
 
-const SearchView = () => {
+const MovieSearchView = () => {
     const [movies, setMovies] = useState<Movie[]>([]);
 
     const search = async ({ search, year, type }: { search: string, year: string, type: string }) => {
@@ -19,4 +19,4 @@ const SearchView = () => {
     )
 }
 
-export { SearchView };
+export default MovieSearchView;
