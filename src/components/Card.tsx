@@ -5,13 +5,13 @@ export const Card = styled.div`
     margin: 20px;
     height: 150px;
     width: 300px;
-    background: #f2f2f2;
+    background: ${props => props.theme.fg};
     overflow: hidden;
-    border-radius: 10px;
+    border-radius: 3px;
     cursor: pointer;
     box-shadow: 0 0 10px 5px #d0d0d0;
 
     &:hover {
-        box-shadow: 0 0 10px 5px palevioletred;
+        box-shadow: 0 0 10px 5px ${props => props.theme.bg};
     }
 `;

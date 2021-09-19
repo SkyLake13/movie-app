@@ -3,4 +3,8 @@ export * from './Textbox';
 export * from './Search';
 export * from './Image';
 export * from './MovieCard';
-export * from './Link'
+export * from './Link';
+export * from './Header';
+export * from './Div';
+export * from './Anchor';
+export * from './Span';

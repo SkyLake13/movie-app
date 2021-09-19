@@ -1,7 +1,6 @@
 import { useState } from "react";
-import styled from 'styled-components';
 
-import { MovieCard, Search } from "../components";
+import { FlexDiv, MovieCard, Search } from "../components";
 import { CardLink } from "../components";
 import { searchMovies, Movie } from "../services";
 
@@ -37,10 +36,5 @@ const MovieList = ({ movies }: { movies: Movie[] }) => {
         </FlexDiv>
     );
 }
-
-const FlexDiv = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-`;
 
 export default MovieSearchView;

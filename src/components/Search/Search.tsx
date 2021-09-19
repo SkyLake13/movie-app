@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import styled from "styled-components";
 
 import { Button } from "../Button";
 import { RadioWithLabel } from "../Radio";
@@ -38,6 +39,7 @@ const Search = ({ onSearch }: Props) => {
                     placeholder="Year"
                     value={year} 
                     onChange={ (e: any) => setYear( e.target.value) }/>
+            <InLineBlockDiv>
             <RadioWithLabel name="type" 
                             id="movie" 
                             value="movie"
@@ -59,12 +61,15 @@ const Search = ({ onSearch }: Props) => {
                             onChange={ e => setType(e) }>
                 Episode
             </RadioWithLabel>
-
+            </InLineBlockDiv>
+            
             <Button type="submit">Search</Button>
         </form>
     )
 }
 
-
+const InLineBlockDiv = styled.div`
+    display: inline-block
+`;
 
 export { Search }

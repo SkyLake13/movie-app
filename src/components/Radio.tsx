@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Radio = styled.input.attrs(() => ({
     type: "radio"
 }))`
-    appearance: none;
+    display: none;
 `;
 
 interface LabelProps {
@@ -12,13 +12,20 @@ interface LabelProps {
 }
 
 export const Label = styled.label<LabelProps>`
-    border: 1px solid black;
+    color: ${props => props.selected ? props.theme.fg : props.theme.bg };
+    border: 1px solid ${props => props.theme.bg };
+    background-color: ${props => props.selected ? props.theme.bg : props.theme.fg };
 
-    background-color: ${props =>  props.selected ? 'lightpink' : 'inherit'};
-
+    
+    font-size: 1em;
+    margin: 0px -1px;
+    padding: 0.17em 1em 0.30em 1em;
+    border-radius: 3px;
+    cursor: pointer;
 
     &:hover {
-        background-color: lightpink;
+        background-color: ${props => props.theme.bg };
+        color: ${props => props.theme.fg };
     }
 `;
 

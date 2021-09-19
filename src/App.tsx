@@ -1,20 +1,28 @@
 import { lazy, Suspense } from "react";
+import { ThemeProvider } from 'styled-components';
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
+import { Header } from "./components";
 
 const MovieSearchView = lazy(() => import('./views/MovieSearch'));
 const MovieDetailView = lazy(() => import('./views/MovieDetailView'));
+
+const theme = {
+  bg: "#42a5f5",
+  fg: "white"
+}
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <header>
-          <h2>Movie App</h2>
-        </header>
+        <ThemeProvider theme={theme}>
+        <Header>
+          <h3>Movie App</h3>
+        </Header>
         <main>
           <Switch>
           <Route path='/:id'>
@@ -29,6 +37,7 @@ function App() {
             </Route>
           </Switch>
         </main>
+        </ThemeProvider>
       </Router>
     </div>
   );
