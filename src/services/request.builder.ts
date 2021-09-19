@@ -23,8 +23,8 @@ export class RequestBuilder {
         return this;
     }
 
-    public setYear(year: number) {
-        this.setParam('y', String(year));
+    public setYear(year: string) {
+        this.setParam('y', year);
         return this;
     }
 

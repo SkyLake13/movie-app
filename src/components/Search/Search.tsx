@@ -1,6 +1,7 @@
-import { FormEvent, useState,  } from "react";
+import { FormEvent, ReactNode, useState,  } from "react";
 
 import { Button } from "../Button";
+import { Label, Radio } from "../Radio";
 import { Textbox } from "../Textbox";
 
 interface Props {
@@ -30,9 +31,50 @@ const Search = ({ onSearch }: Props) => {
                     placeholder="Year"
                     value={year} 
                     onChange={ (e: any) => setYear( e.target.value) }/>
+            <RadioWithLabel name="type" 
+                            id="movie" 
+                            value="movie"
+                            onChange={ e => setType(e) }>
+                Movie
+            </RadioWithLabel>
+            <RadioWithLabel name="type" 
+                            id="series" 
+                            value="series"
+                            onChange={ e => setType(e) }>
+                Series
+            </RadioWithLabel>
+            <RadioWithLabel name="type" 
+                            id="episode" 
+                            value="episode"
+                            onChange={ e => setType(e) }>
+                Episode
+            </RadioWithLabel>
+
             <Button type="submit">Search</Button>
         </form>
     )
 }
 
 export { Search }
+
+interface RadioProps {
+    id: string, 
+    name: string, 
+    value: string, 
+    children: ReactNode,
+    onChange: (value: string) => void
+}
+
+const RadioWithLabel = ({id, name, value, children, onChange }: RadioProps) => {
+    return (
+        <>
+            <Radio name={name} 
+                   id={id} 
+                   value={value}
+                   onChange={ e => onChange(e.target.value)}/>
+            <Label htmlFor={id}>
+                {children}
+            </Label>
+        </>
+    );
+}

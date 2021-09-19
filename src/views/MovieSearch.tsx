@@ -21,16 +21,12 @@ const MovieSearchView = () => {
     )
 }
 
-const Flex = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-`;
 
 const MovieList = ({ movies }: { movies: Movie[] }) => {
     return (
         <Flex>
-            { movies.map((movie) =>
-                (<CardLink to={`/${movie.imdbID}`}>
+            { movies?.map((movie) =>
+                (<CardLink key={movie.imdbID} to={`/${movie.imdbID}`}>
                     <MovieCard title={movie.Title}
                         year={movie.Year}
                         imdbID={movie.imdbID}
@@ -41,5 +37,10 @@ const MovieList = ({ movies }: { movies: Movie[] }) => {
         </Flex>
     );
 }
+
+const Flex = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+`;
 
 export default MovieSearchView;
