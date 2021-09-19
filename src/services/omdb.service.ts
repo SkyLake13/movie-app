@@ -1,3 +1,4 @@
+import { MovieResponse } from "./movie.response";
 import { RequestBuilder } from "./request.builder";
 import { SearchResult } from "./search.response";
 
@@ -12,6 +13,16 @@ const searchMovies = (search: string, year?: string, type?: string) => {
 
     return fetch(uri)
         .then<SearchResult>((res) => res.json());
+}
+
+export function getMovieById(id: string) {
+    const urlBuilder = new RequestBuilder(url);
+    urlBuilder.setApiKey(apikey).setId(id);
+
+    const uri = urlBuilder.build().toString();
+
+    return fetch(uri)
+        .then<MovieResponse>((res) => res.json());
 }
 
 

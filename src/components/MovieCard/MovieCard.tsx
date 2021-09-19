@@ -25,6 +25,7 @@ const MovieCard = ({ title, year, imdbID, type, poster }: Props) => {
         <Card>
             <Image src={poster} alt="Poster not found"></Image>
             <MarginedDiv>
+                <CapitalizedDiv>{title}</CapitalizedDiv>
                 <div>{year}</div>
                 <CapitalizedDiv>{type}</CapitalizedDiv>
             </MarginedDiv>

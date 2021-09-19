@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 const MovieSearchView = lazy(() => import('./views/MovieSearch'));
+const MovieDetailView = lazy(() => import('./views/MovieDetailView'));
 
 function App() {
   return (
@@ -16,6 +17,11 @@ function App() {
         </header>
         <main>
           <Switch>
+          <Route path='/:id'>
+              <Suspense fallback={<div>Loading...</div>}>
+                <MovieDetailView />
+              </Suspense>
+            </Route>
             <Route path='/' exact>
               <Suspense fallback={<div>Loading...</div>}>
                 <MovieSearchView />
