@@ -1,5 +1,6 @@
 import { FormEvent, useState } from "react";
 import styled from "styled-components";
+import { SearchParams } from "../../state";
 
 import { Button } from "../Button";
 import { RadioWithLabel } from "../Radio";
@@ -14,7 +15,7 @@ const Search = ({ onSearch }: Props) => {
         e.preventDefault();
 
         onSearch({
-            search,
+            text: search,
             year,
             type
         });
@@ -74,13 +75,8 @@ const Form = styled.form`
     flex-wrap: wrap;
 `;
 
-interface SearchEvent {
-    search: string,
-    year: string,
-    type: string
-}
 interface Props {
-    onSearch: (event: SearchEvent) => void;
+    onSearch: (event: SearchParams) => void;
 }
 
 export { Search }

@@ -2,12 +2,10 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from 'styled-components';
 
-import { FlexDiv, InvertedButton, MovieCard, Search } from "../components";
-import { CardLink } from "../components";
-import { Movie, searchMovies } from "../services";
-import { AppState, 
-    MovieSearchActionTypes, 
-    MovieSearchState } from "../state";
+import { FlexDiv, InvertedButton, MovieList, Search } from "../components";
+import { searchMovies } from "../services";
+import { AppState, MovieSearchActionTypes, 
+    MovieSearchState, searchAction, nextPageAction, SearchParams } from "../state";
 
 const MovieSearchView = () => {
     const page = useRef(1);
@@ -19,43 +17,26 @@ const MovieSearchView = () => {
     const searchObj = movieResult.search;
 
     useEffect(() => {
-        dispatch({
-            type: MovieSearchActionTypes.DEFAULT,
-        });
+        dispatch({ type: MovieSearchActionTypes.DEFAULT });
     }, [dispatch])
 
-    const handleSearch = async ({ search, year, type }: SearchParams) => {
-        const getPage = searchMovies(search, year, type);
-        const result = await getPage(page.current);
+    const handleSearch = async (searchObj: SearchParams) => {
+        const result = await fetchData(searchObj);
         
-        dispatch({
-            type: MovieSearchActionTypes.SEARCH_MOVIES,
-            payload: {
-                result,
-                search: {
-                    text: search,
-                    year,
-                    type
-                }
-            }
-        });
+        dispatch(searchAction(result, { ...searchObj }));
     }
 
     const handleMore = async () => {
         page.current = page.current + 1;
+        const result = await fetchData(searchObj);
+        
+        dispatch(nextPageAction(result, { ...searchObj }));
+    }
 
+    const fetchData = async (searchObj: SearchParams) => {
         const getPage = searchMovies(searchObj.text, searchObj.year, searchObj.type);
         const result = await getPage(page.current);
-        
-        dispatch({
-            type: MovieSearchActionTypes.NEXT_PAGE,
-            payload: {
-                result,
-                search: {
-                    ...searchObj
-                }
-            }
-        });
+        return result;
     }
 
     return (
@@ -75,27 +56,6 @@ const MovieSearchView = () => {
     )
 }
 
-
-const MovieList = ({ movies }: { movies: Movie[] }) => {
-    return (
-        <>
-            { 
-                movies?.map((movie) =>
-                    (<CardLink key={movie.imdbID} to={`/${movie.imdbID}`}>
-                        <MovieCard title={movie.Title}
-                            year={movie.Year}
-                            type={movie.Type}
-                            poster={movie.Poster} />
-                    </CardLink>))
-            }
-        </>
-    );
-}
-
-interface SearchParams {
-    search: string, year: string, type: string
-}
-
 const Container = styled.div`
     display: flex;
     justify-content: center;
@@ -103,3 +63,5 @@ const Container = styled.div`
 `;
 
 export default MovieSearchView;
+
+
