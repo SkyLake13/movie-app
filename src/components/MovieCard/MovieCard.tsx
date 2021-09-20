@@ -13,21 +13,21 @@ interface Props {
 const MovieCard = ({ title, year, type, poster }: Props) => {
     return (
         <Card>
-            <Image src={poster} alt="Poster not found"></Image>
-            <MarginedDiv>
-                <CapitalizedDiv>{title}</CapitalizedDiv>
+            <Image small src={poster} alt="Poster not found"></Image>
+            <Container>
+                <Capitalize>{title}</Capitalize>
                 <div>{year}</div>
-                <CapitalizedDiv>{type}</CapitalizedDiv>
-            </MarginedDiv>
+                <Capitalize>{type}</Capitalize>
+            </Container>
         </Card>
     )
 }
 
-const CapitalizedDiv = styled.div`
+const Capitalize = styled.div`
     text-transform: capitalize;
 `;
 
-const MarginedDiv = styled.div`
+const Container = styled.div`
     margin: 10px;
     padding: 0px;
 `;

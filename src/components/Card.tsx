@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Card = styled.div`
     display: flex;
-    margin: 20px;
+    margin: 10px;
     height: 150px;
     width: 300px;
     background: ${props => props.theme.fg};

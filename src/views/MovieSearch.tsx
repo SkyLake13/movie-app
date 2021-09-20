@@ -15,7 +15,9 @@ const MovieSearchView = () => {
     return (
         <>
             <Search onSearch={(e) => search(e)} />
-            <MovieList movies={movies} />
+            <FlexDiv>
+                <MovieList movies={movies} />
+            </FlexDiv>
         </>
     )
 }
@@ -23,7 +25,7 @@ const MovieSearchView = () => {
 
 const MovieList = ({ movies }: { movies: Movie[] }) => {
     return (
-        <FlexDiv>
+        <>
             { 
                 movies?.map((movie) =>
                     (<CardLink key={movie.imdbID} to={`/${movie.imdbID}`}>
@@ -33,7 +35,7 @@ const MovieList = ({ movies }: { movies: Movie[] }) => {
                             poster={movie.Poster} />
                     </CardLink>))
             }
-        </FlexDiv>
+        </>
     );
 }
 

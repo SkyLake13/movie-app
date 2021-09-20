@@ -8,3 +8,5 @@ export * from './Header';
 export * from './Div';
 export * from './Anchor';
 export * from './Span';
+export * from './MovieMetadata';
+export * from './MovieDetail';
