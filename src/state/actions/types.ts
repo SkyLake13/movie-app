@@ -1,10 +1,11 @@
 import { Action } from "redux";
-import { SearchResult } from "../../services";
+import { MovieSearchState } from "../reducers/movies-search";
 
 export enum ActionTypes {
-    SEARCH_MOVIES = 'SEARCH_MOVIES'
+    SEARCH_MOVIES = 'SEARCH_MOVIES',
+    DEFAULT = 'sSEARCH_DEFAULT'
 }
 
 export interface MovieAction extends Action<ActionTypes> {
-    payload: SearchResult
+    payload: MovieSearchState
 }

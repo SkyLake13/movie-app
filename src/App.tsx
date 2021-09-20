@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { Header } from "./components";
-import store from './state/store';
+import { store } from './state/store';
 
 const MovieSearchView = lazy(() => import('./views/MovieSearch'));
 const MovieDetailView = lazy(() => import('./views/MovieDetailView'));

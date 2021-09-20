@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import { moviesReducer } from './movie';
+import { moviesSearchReducer } from './movies-search';
 
 const rootReducer = combineReducers({
-    movies: moviesReducer,
+    search: moviesSearchReducer,
 });
 
 export default rootReducer;

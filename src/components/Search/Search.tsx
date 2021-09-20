@@ -11,19 +11,24 @@ interface SearchEvent {
     type: string
 }
 interface Props {
+    text: string,
+    type: string,
+    year: string,
     onSearch: (event: SearchEvent) => void;
 }
 
-const Search = ({ onSearch }: Props) => {
-    const [search, setSearch] = useState<string>('');
-    const [year, setYear] = useState<string>('');
-    const [type, setType] = useState<string>('');
+const Search = ({ text, type, year, onSearch }: Props) => {
+    const [search, setSearch] = useState<string>(text);
+    const [yr, setYr] = useState<string>(year);
+    const [typ, setTy] = useState<string>(type);
 
     const formSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         onSearch({
-            search, year, type
+            search, 
+            year: yr, 
+            type: typ
         });
     };
 
@@ -35,29 +40,29 @@ const Search = ({ onSearch }: Props) => {
                 onChange={(e: any) => setSearch(e.target.value)} />
             <Textbox type="number"
                 placeholder="Year"
-                value={year}
-                onChange={(e: any) => setYear(e.target.value)} />
+                value={yr}
+                onChange={(e: any) => setYr(e.target.value)} />
             <RadioGroupContainer>
                 <RadioGroup>
                     <RadioWithLabel name="type"
                         id="movie"
                         value="movie"
                         selected={'movie' === type}
-                        onChange={e => setType(e)}>
+                        onChange={e => setTy(e)}>
                         Movie
                     </RadioWithLabel>
                     <RadioWithLabel name="type"
                         id="series"
                         value="series"
                         selected={'series' === type}
-                        onChange={e => setType(e)}>
+                        onChange={e => setTy(e)}>
                         Series
                     </RadioWithLabel>
                     <RadioWithLabel name="type"
                         id="episode"
                         value="episode"
                         selected={'episode' === type}
-                        onChange={e => setType(e)}>
+                        onChange={e => setTy(e)}>
                         Episode
                     </RadioWithLabel>
                 </RadioGroup>

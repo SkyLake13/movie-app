@@ -1,28 +1,36 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { FlexDiv, MovieCard, Search } from "../components";
 import { CardLink } from "../components";
-import { searchMovies, Movie, SearchResult } from "../services";
-import { searchMovie } from "../state/actions/movie-actions";
-import { ActionTypes } from "../state/actions/types";
+import { Movie } from "../services";
+import { getDefaultSearchState, searchMovie } from "../state/actions/movie-actions";
+import { MovieSearchState } from "../state/reducers/movies-search";
+import { AppState } from "../state/store";
 
 const MovieSearchView = () => {
-    // const [movies, setMovies] = useState<Movie[]>([]);
-    const movieResult = useSelector<any>(state => state.movies.movies) as SearchResult;
+    const movieResult = useSelector<AppState, MovieSearchState>(state => state.search);
     const dispatch = useDispatch();
 
-    const search = async ({ search, year, type }: { search: string, year: string, type: string }) => {
-        /* const movieResult = await searchMovies(search, year, type);
-        setMovies(movieResult.Search); */
+    const movies = movieResult.result.Search;
+    const searchObj = movieResult.search;
+
+    useEffect(() => {
+        dispatch(getDefaultSearchState());
+    }, [dispatch])
+
+    const search = async ({ search, year, type }: SearchParams) => {
         dispatch(searchMovie(search, year, type));
     }
 
     return (
         <>
-            <Search onSearch={(e) => search(e)} />
+            <Search text={searchObj.text} 
+                    year={searchObj.year || ''} 
+                    type={searchObj.type || ''} 
+                    onSearch={(e) => search(e)} />
             <FlexDiv>
-                <MovieList movies={movieResult.Search} />
+                <MovieList movies={movies} />
             </FlexDiv>
         </>
     )
@@ -43,6 +51,10 @@ const MovieList = ({ movies }: { movies: Movie[] }) => {
             }
         </>
     );
+}
+
+interface SearchParams {
+    search: string, year: string, type: string
 }
 
 export default MovieSearchView;
