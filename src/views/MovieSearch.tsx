@@ -47,7 +47,7 @@ const MovieSearchView = () => {
         const result = await getPage(page.current);
         
         dispatch({
-            type: MovieSearchActionTypes.SEARCH_MOVIES,
+            type: MovieSearchActionTypes.NEXT_PAGE,
             payload: {
                 result,
                 search: {
