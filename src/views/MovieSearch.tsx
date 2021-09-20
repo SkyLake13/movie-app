@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { FlexDiv, MovieCard, Search } from "../components";
 import { CardLink } from "../components";
 import { Movie } from "../services";
-import { getDefaultSearchState, searchMovie } from "../state/actions/movie-actions";
-import { MovieSearchState } from "../state/reducers/movies-search";
-import { AppState } from "../state/store";
+import { AppState, getDefaultSearchState, 
+    MovieSearchState, searchMovies } from "../state";
 
 const MovieSearchView = () => {
     const movieResult = useSelector<AppState, MovieSearchState>(state => state.search);
@@ -19,8 +18,8 @@ const MovieSearchView = () => {
         dispatch(getDefaultSearchState());
     }, [dispatch])
 
-    const search = async ({ search, year, type }: SearchParams) => {
-        dispatch(searchMovie(search, year, type));
+    const handleSearch = async ({ search, year, type }: SearchParams) => {
+        dispatch(searchMovies(search, year, type));
     }
 
     return (
@@ -28,7 +27,7 @@ const MovieSearchView = () => {
             <Search text={searchObj.text} 
                     year={searchObj.year || ''} 
                     type={searchObj.type || ''} 
-                    onSearch={(e) => search(e)} />
+                    onSearch={(e) => handleSearch(e)} />
             <FlexDiv>
                 <MovieList movies={movies} />
             </FlexDiv>
