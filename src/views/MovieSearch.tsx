@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import styled from 'styled-components';
 
 import { FlexDiv, InvertedButton, MovieCard, Search } from "../components";
 import { CardLink } from "../components";
@@ -59,14 +60,17 @@ const MovieSearchView = () => {
 
     return (
         <>
-            <Search text={searchObj.text}
-                    year={searchObj.year || ''}
-                    type={searchObj.type || ''}
-                    onSearch={(e) => handleSearch(e)} />
+            <Search onSearch={(e) => handleSearch(e)} />
+            <hr/>
             <FlexDiv>
                 <MovieList movies={movies} />
             </FlexDiv>
-            { movies && <InvertedButton onClick={ () => handleMore()}>More...</InvertedButton> }
+            { 
+                movies &&
+                    <Container>
+                        <InvertedButton onClick={ () => handleMore()}>More...</InvertedButton>
+                    </Container>  
+            }
         </>
     )
 }
@@ -91,5 +95,11 @@ const MovieList = ({ movies }: { movies: Movie[] }) => {
 interface SearchParams {
     search: string, year: string, type: string
 }
+
+const Container = styled.div`
+    display: flex;
+    justify-content: center;
+    margin: 2em;
+`;
 
 export default MovieSearchView;

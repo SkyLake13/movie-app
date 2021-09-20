@@ -5,30 +5,18 @@ import { Button } from "../Button";
 import { RadioWithLabel } from "../Radio";
 import { Textbox } from "../Textbox";
 
-interface SearchEvent {
-    search: string,
-    year: string,
-    type: string
-}
-interface Props {
-    text: string,
-    type: string,
-    year: string,
-    onSearch: (event: SearchEvent) => void;
-}
-
-const Search = ({ text, type, year, onSearch }: Props) => {
-    const [search, setSearch] = useState<string>(text);
-    const [yr, setYr] = useState<string>(year);
-    const [typ, setTy] = useState<string>(type);
+const Search = ({ onSearch }: Props) => {
+    const [search, setSearch] = useState<string>('');
+    const [year, setYear] = useState<string>('');
+    const [type, setType] = useState<string>('');
 
     const formSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         onSearch({
             search,
-            year: yr,
-            type: typ
+            year,
+            type
         });
     };
 
@@ -43,33 +31,31 @@ const Search = ({ text, type, year, onSearch }: Props) => {
             <Container>
                 <Textbox type="number"
                     placeholder="Year"
-                    value={yr}
-                    onChange={(e: any) => setYr(e.target.value)} />
+                    value={year}
+                    onChange={(e: any) => setYear(e.target.value)} />
             </Container>
             <Container>
-                <RadioGroup>
                     <RadioWithLabel name="type"
                         id="movie"
                         value="movie"
                         selected={'movie' === type}
-                        onChange={e => setTy(e)}>
+                        onChange={e => setType(e)}>
                         Movie
                     </RadioWithLabel>
                     <RadioWithLabel name="type"
                         id="series"
                         value="series"
                         selected={'series' === type}
-                        onChange={e => setTy(e)}>
+                        onChange={e => setType(e)}>
                         Series
                     </RadioWithLabel>
                     <RadioWithLabel name="type"
                         id="episode"
                         value="episode"
                         selected={'episode' === type}
-                        onChange={e => setTy(e)}>
+                        onChange={e => setType(e)}>
                         Episode
                     </RadioWithLabel>
-                </RadioGroup>
             </Container>
             <Container>
                 <Button type="submit">Search</Button>
@@ -78,9 +64,6 @@ const Search = ({ text, type, year, onSearch }: Props) => {
     )
 }
 
-const RadioGroup = styled.div`
-
-`;
 
 const Container = styled.div`
     margin: 1em
@@ -90,5 +73,14 @@ const Form = styled.form`
     display: flex;
     flex-wrap: wrap;
 `;
+
+interface SearchEvent {
+    search: string,
+    year: string,
+    type: string
+}
+interface Props {
+    onSearch: (event: SearchEvent) => void;
+}
 
 export { Search }
