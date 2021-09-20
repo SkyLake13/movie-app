@@ -1,11 +1,10 @@
 import { lazy, Suspense } from "react";
 import { ThemeProvider } from 'styled-components';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from "react-router-dom";
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import { Header } from "./components";
+import store from './state/store';
 
 const MovieSearchView = lazy(() => import('./views/MovieSearch'));
 const MovieDetailView = lazy(() => import('./views/MovieDetailView'));
@@ -18,6 +17,7 @@ const theme = {
 function App() {
   return (
     <div className="App">
+      <Provider store={store}>
       <Router>
         <ThemeProvider theme={theme}>
         <Header>
@@ -39,6 +39,8 @@ function App() {
         </main>
         </ThemeProvider>
       </Router>
+      </Provider>
+      
     </div>
   );
 }
