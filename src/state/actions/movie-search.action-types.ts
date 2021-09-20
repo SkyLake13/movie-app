@@ -3,6 +3,7 @@ import { MovieSearchState } from "../interfaces";
 
 export enum MovieSearchActionTypes {
     SEARCH_MOVIES = 'SEARCH_MOVIES',
+    NEXT_PAGE = 'SEARCH_MOVIES_NEXT_PAGE',
     DEFAULT = 'sSEARCH_DEFAULT'
 }
 

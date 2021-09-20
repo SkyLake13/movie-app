@@ -9,6 +9,14 @@ const moviesSearchReducer = (state = initialState, action: MovieAction): MovieSe
                 result: action.payload.result,
                 search: action.payload.search
             });
+        case MovieSearchActionTypes.NEXT_PAGE:
+            return ({
+                ...state,
+                result: {
+                    ...state.result,
+                    Search: [...state.result.Search, ...action.payload.result.Search]
+                }
+            });
         case MovieSearchActionTypes.DEFAULT:
             return state;
         default:

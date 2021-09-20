@@ -1,13 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { FlexDiv, MovieCard, Search } from "../components";
+import { Button, FlexDiv, MovieCard, Search } from "../components";
 import { CardLink } from "../components";
-import { Movie } from "../services";
-import { AppState, getDefaultSearchState, 
-    MovieSearchState, searchMovies } from "../state";
+import { Movie, searchMovies } from "../services";
+import { AppState, 
+    MovieSearchActionTypes, 
+    MovieSearchState } from "../state";
 
 const MovieSearchView = () => {
+    const page = useRef(1);
+
     const movieResult = useSelector<AppState, MovieSearchState>(state => state.search);
     const dispatch = useDispatch();
 
@@ -15,11 +18,43 @@ const MovieSearchView = () => {
     const searchObj = movieResult.search;
 
     useEffect(() => {
-        dispatch(getDefaultSearchState());
+        dispatch({
+            type: MovieSearchActionTypes.DEFAULT,
+        });
     }, [dispatch])
 
     const handleSearch = async ({ search, year, type }: SearchParams) => {
-        dispatch(searchMovies(search, year, type));
+        const getPage = searchMovies(search, year, type);
+        const result = await getPage(page.current);
+        
+        dispatch({
+            type: MovieSearchActionTypes.SEARCH_MOVIES,
+            payload: {
+                result,
+                search: {
+                    text: search,
+                    year,
+                    type
+                }
+            }
+        });
+    }
+
+    const handleMore = async () => {
+        page.current = page.current + 1;
+
+        const getPage = searchMovies(searchObj.text, searchObj.year, searchObj.type);
+        const result = await getPage(page.current);
+        
+        dispatch({
+            type: MovieSearchActionTypes.SEARCH_MOVIES,
+            payload: {
+                result,
+                search: {
+                    ...searchObj
+                }
+            }
+        });
     }
 
     return (
@@ -31,6 +66,7 @@ const MovieSearchView = () => {
             <FlexDiv>
                 <MovieList movies={movies} />
             </FlexDiv>
+            <Button onClick={ () => handleMore()}>More..</Button>
         </>
     )
 }

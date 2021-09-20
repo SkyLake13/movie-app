@@ -11,10 +11,13 @@ const searchMovies = (search: string, year?: string, type?: string) => {
     year && requestBuilder.setYear(year);
     type && requestBuilder.setType(type);
 
-    const uri = requestBuilder.build().toString();
-
-    return fetch(uri)
-        .then<SearchResult>((res) => res.json());
+    return (page: number) => {
+        requestBuilder.setPage(page);
+        const url = requestBuilder.build().toString();
+    
+        return fetch(url)
+            .then<SearchResult>((res) => res.json());
+    }
 }
 
 export function getMovieById(id: string) {
