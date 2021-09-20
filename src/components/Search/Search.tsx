@@ -26,23 +26,27 @@ const Search = ({ text, type, year, onSearch }: Props) => {
         e.preventDefault();
 
         onSearch({
-            search, 
-            year: yr, 
+            search,
+            year: yr,
             type: typ
         });
     };
 
     return (
         <Form onSubmit={e => formSubmit(e)}>
-            <Textbox type="text"
-                placeholder="Title"
-                value={search}
-                onChange={(e: any) => setSearch(e.target.value)} />
-            <Textbox type="number"
-                placeholder="Year"
-                value={yr}
-                onChange={(e: any) => setYr(e.target.value)} />
-            <RadioGroupContainer>
+            <Container>
+                <Textbox type="text"
+                    placeholder="Title"
+                    value={search}
+                    onChange={(e: any) => setSearch(e.target.value)} />
+            </Container>
+            <Container>
+                <Textbox type="number"
+                    placeholder="Year"
+                    value={yr}
+                    onChange={(e: any) => setYr(e.target.value)} />
+            </Container>
+            <Container>
                 <RadioGroup>
                     <RadioWithLabel name="type"
                         id="movie"
@@ -66,18 +70,20 @@ const Search = ({ text, type, year, onSearch }: Props) => {
                         Episode
                     </RadioWithLabel>
                 </RadioGroup>
-            </RadioGroupContainer>
-            <Button type="submit">Search</Button>
+            </Container>
+            <Container>
+                <Button type="submit">Search</Button>
+            </Container>
         </Form>
     )
 }
 
 const RadioGroup = styled.div`
-    margin: 1em;
+
 `;
 
-const RadioGroupContainer = styled.div`
-    margin: 3px;
+const Container = styled.div`
+    margin: 1em
 `;
 
 const Form = styled.form`

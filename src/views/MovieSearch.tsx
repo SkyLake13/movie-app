@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Button, FlexDiv, MovieCard, Search } from "../components";
+import { FlexDiv, InvertedButton, MovieCard, Search } from "../components";
 import { CardLink } from "../components";
 import { Movie, searchMovies } from "../services";
 import { AppState, 
@@ -59,14 +59,14 @@ const MovieSearchView = () => {
 
     return (
         <>
-            <Search text={searchObj.text} 
-                    year={searchObj.year || ''} 
-                    type={searchObj.type || ''} 
+            <Search text={searchObj.text}
+                    year={searchObj.year || ''}
+                    type={searchObj.type || ''}
                     onSearch={(e) => handleSearch(e)} />
             <FlexDiv>
                 <MovieList movies={movies} />
             </FlexDiv>
-            <Button onClick={ () => handleMore()}>More..</Button>
+            { movies && <InvertedButton onClick={ () => handleMore()}>More...</InvertedButton> }
         </>
     )
 }
