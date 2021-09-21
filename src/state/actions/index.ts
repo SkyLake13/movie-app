@@ -1,2 +1,2 @@
 export * from './movie-search.action-types';
-export * from './actions';
+export * from './movie-search.actions';
