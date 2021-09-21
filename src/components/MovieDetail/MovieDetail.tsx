@@ -36,13 +36,18 @@ const MovieDetail = (props: MovieDetailProps) => {
                 </Container>
             </FlexDiv>
             <hr/>
-            <p>{props?.plot}</p>
+            <Paragraph>{props?.plot}</Paragraph>
         </>
     );
 }
 
 const Container = styled.div`
     margin: 0px 20px;
+`;
+
+const Paragraph = styled.p`
+    width: 95%;
+    margin: 0 auto;
 `;
 
 export default MovieDetail;

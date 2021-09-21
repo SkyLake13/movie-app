@@ -1,7 +1,8 @@
 import { Movie } from "../services";
 
 interface AppState {
-    searchMovies: MovieSearchState
+    searchMovies: MovieSearchState,
+    spinner: SpinnerState
 }
 
 interface MovieSearchState {
@@ -14,4 +15,8 @@ interface MovieSearchState {
     page: number
 }
 
-export type { AppState, MovieSearchState };
+interface SpinnerState {
+    pending: boolean;
+}
+
+export type { AppState, MovieSearchState, SpinnerState };

@@ -1,11 +1,11 @@
 import { Movie } from "../../services";
-import { MovieSearchActionTypes } from "./movie-search.action-types";
+import { MovieAction, MovieSearchActionTypes } from "./movie-search.action-types";
 
 interface SearchParams {
     text: string, year?: string, type?: string
 }
 
-const searchAction = (movies: Movie[], search: SearchParams, page: number) => {
+const searchAction = (movies: Movie[], search: SearchParams, page: number): MovieAction => {
     return ({
         type: MovieSearchActionTypes.SEARCH_MOVIES,
         payload: {
@@ -17,7 +17,7 @@ const searchAction = (movies: Movie[], search: SearchParams, page: number) => {
 }
 
 
-const nextPageAction = (movies: Movie[], search: SearchParams, page: number) => {
+const nextPageAction = (movies: Movie[], search: SearchParams, page: number): MovieAction => {
     return ({
         type: MovieSearchActionTypes.NEXT_PAGE,
         payload: {
