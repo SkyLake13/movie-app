@@ -10,7 +10,8 @@ interface MovieSearchState {
         text: string,
         year?: string,
         type?: string
-    }
+    },
+    page: number
 }
 
 export type { AppState, MovieSearchState };

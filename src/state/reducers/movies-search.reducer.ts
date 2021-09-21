@@ -6,12 +6,14 @@ const moviesSearchReducer = (state = initialState, action: MovieAction): MovieSe
         case MovieSearchActionTypes.SEARCH_MOVIES:
             return ({
                 movies: action.payload.movies,
-                search: action.payload.search
+                search: action.payload.search,
+                page: action.payload.page
             });
         case MovieSearchActionTypes.NEXT_PAGE:
             return ({
                 ...state,
-                movies: [...state.movies, ...action.payload.movies]
+                movies: [...state.movies, ...action.payload.movies],
+                page: action.payload.page
             });
         case MovieSearchActionTypes.DEFAULT:
             return state;
@@ -26,7 +28,8 @@ const initialState: MovieSearchState = {
         text: '',
         year: '',
         type: ''
-    }
+    },
+    page: 0
 }
 
 export { moviesSearchReducer };

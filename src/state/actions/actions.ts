@@ -5,23 +5,25 @@ interface SearchParams {
     text: string, year?: string, type?: string
 }
 
-const searchAction = (movies: Movie[], search: SearchParams) => {
+const searchAction = (movies: Movie[], search: SearchParams, page: number) => {
     return ({
         type: MovieSearchActionTypes.SEARCH_MOVIES,
         payload: {
             movies,
-            search
+            search,
+            page
         }
     });
 }
 
 
-const nextPageAction = (movies: Movie[], search: SearchParams) => {
+const nextPageAction = (movies: Movie[], search: SearchParams, page: number) => {
     return ({
         type: MovieSearchActionTypes.NEXT_PAGE,
         payload: {
             movies,
-            search
+            search,
+            page
         }
     });
 }

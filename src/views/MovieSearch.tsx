@@ -8,30 +8,29 @@ import { AppState, MovieSearchActionTypes,
     MovieSearchState, searchAction, nextPageAction, SearchParams } from "../state";
 
 const MovieSearchView = () => {
-    const page = useRef(1);
-
     const searchMoviesState = useSelector<AppState, MovieSearchState>(state => state.searchMovies);
     const dispatch = useDispatch();
 
     const movies = searchMoviesState.movies;
     const search = searchMoviesState.search;
+    const page = searchMoviesState.page;
 
     useEffect(() => {
         dispatch({ type: MovieSearchActionTypes.DEFAULT });
     }, [dispatch])
 
     const handleSearch = async (search: SearchParams) => {
-        page.current = 1;
-        const result = await fetchData(search, page.current);
+        const pageNumber = 1;
+        const result = await fetchData(search, pageNumber);
 
-        dispatch(searchAction(result.Search, { ...search }));
+        dispatch(searchAction(result.Search, { ...search }, pageNumber));
     }
 
     const handleMore = async () => {
-        page.current = page.current + 1;
-        const result = await fetchData(search, page.current);
+        const pageNumber = page + 1;
+        const result = await fetchData(search, pageNumber);
         
-        dispatch(nextPageAction(result.Search, { ...search }));
+        dispatch(nextPageAction(result.Search, { ...search }, pageNumber));
     }
 
     const fetchData = async (search: SearchParams, pageNumber: number) => {
