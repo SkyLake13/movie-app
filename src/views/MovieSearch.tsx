@@ -14,29 +14,29 @@ const MovieSearchView = () => {
     const dispatch = useDispatch();
 
     const movies = movieResult.result.Search;
-    const searchObj = movieResult.search;
+    const search = movieResult.search;
 
     useEffect(() => {
         dispatch({ type: MovieSearchActionTypes.DEFAULT });
     }, [dispatch])
 
-    const handleSearch = async (searchObj: SearchParams) => {
-        const result = await fetchData(searchObj);
-        
-        dispatch(searchAction(result, { ...searchObj }));
+    const handleSearch = async (search: SearchParams) => {
+        page.current = 1;
+        const result = await fetchData(search, page.current);
+
+        dispatch(searchAction(result, { ...search }));
     }
 
     const handleMore = async () => {
         page.current = page.current + 1;
-        const result = await fetchData(searchObj);
+        const result = await fetchData(search, page.current);
         
-        dispatch(nextPageAction(result, { ...searchObj }));
+        dispatch(nextPageAction(result, { ...search }));
     }
 
-    const fetchData = async (searchObj: SearchParams) => {
-        const getPage = searchMovies(searchObj.text, searchObj.year, searchObj.type);
-        const result = await getPage(page.current);
-        return result;
+    const fetchData = async (search: SearchParams, pageNumber: number) => {
+        const getPage = searchMovies(search.text, search.year, search.type);
+        return await getPage(pageNumber);
     }
 
     return (
