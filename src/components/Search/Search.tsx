@@ -29,12 +29,12 @@ const Search = ({ onSearch }: Props) => {
                     value={search}
                     onChange={(e: any) => setSearch(e.target.value)} />
             </Container>
-            <Container>
+            <SmallContainer>
                 <Textbox type="number"
                     placeholder="Year"
                     value={year}
                     onChange={(e: any) => setYear(e.target.value)} />
-            </Container>
+            </SmallContainer>
             <Container>
                     <RadioWithLabel name="type"
                         id="movie"
@@ -73,6 +73,16 @@ const Container = styled.div`
 const Form = styled.form`
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+`;
+
+const SmallContainer = styled(Container)`
+    width: 100px;
+
+    input {
+        width: -webkit-fill-available;
+    }
+    
 `;
 
 interface Props {
