@@ -9,9 +9,11 @@ import { getMovieById, MovieResponse } from "../services";
 const DetailView = () => {
     const [movie, setMovie] = useState<MovieResponse>();
 
+    // Get movie id from url params
     const { id } = useParams<{ id: string }>();
 
     useEffect(() => {
+        // Fetch movie data
         getMovieById(id)
             .then((movieResponse) => setMovie(movieResponse));
     }, [id]);

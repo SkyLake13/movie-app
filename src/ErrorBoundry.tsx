@@ -17,7 +17,8 @@ class AppErrorBoundary extends Component<{ children: ReactNode }, State> {
 
     public render() {
         if (this.state.hasError) {
-            return <h1>Sorry.. there was an error</h1>;
+            return <h1>Something went wrong. Please refresh the page. 
+                For more info about error check console log</h1>;
         }
 
         return this.props.children;

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from 'styled-components';
 
@@ -16,9 +16,11 @@ const MovieSearchView = () => {
     const page = searchMoviesState.page;
 
     useEffect(() => {
+        // Get initial state or previous state
         dispatch({ type: MovieSearchActionTypes.DEFAULT });
     }, [dispatch])
 
+    // Perform API call for search
     const handleSearch = async (search: SearchParams) => {
         const pageNumber = 1;
         const result = await fetchData(search, pageNumber);
@@ -26,6 +28,7 @@ const MovieSearchView = () => {
         dispatch(searchAction(result.Search, { ...search }, pageNumber));
     }
 
+    // Get next page of result
     const handleMore = async () => {
         const pageNumber = page + 1;
         const result = await fetchData(search, pageNumber);

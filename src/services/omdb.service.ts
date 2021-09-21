@@ -1,9 +1,10 @@
+import { API_BASE_URL, API_KEY } from "../config";
 import { MovieResponse } from "./movie.response";
 import { RequestBuilder } from "./request.builder";
 import { SearchResult } from "./search.response";
 
-const url = 'http://www.omdbapi.com';
-const apikey = '833c72c1';
+const url = API_BASE_URL;
+const apikey = API_KEY;
 
 const searchMovies = (search: string, year?: string, type?: string) => {
     const requestBuilder = new RequestBuilder(url);
