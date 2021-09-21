@@ -10,11 +10,11 @@ import { AppState, MovieSearchActionTypes,
 const MovieSearchView = () => {
     const page = useRef(1);
 
-    const movieResult = useSelector<AppState, MovieSearchState>(state => state.search);
+    const searchMoviesState = useSelector<AppState, MovieSearchState>(state => state.searchMovies);
     const dispatch = useDispatch();
 
-    const movies = movieResult.result.Search;
-    const search = movieResult.search;
+    const movies = searchMoviesState.movies;
+    const search = searchMoviesState.search;
 
     useEffect(() => {
         dispatch({ type: MovieSearchActionTypes.DEFAULT });
@@ -24,14 +24,14 @@ const MovieSearchView = () => {
         page.current = 1;
         const result = await fetchData(search, page.current);
 
-        dispatch(searchAction(result, { ...search }));
+        dispatch(searchAction(result.Search, { ...search }));
     }
 
     const handleMore = async () => {
         page.current = page.current + 1;
         const result = await fetchData(search, page.current);
         
-        dispatch(nextPageAction(result, { ...search }));
+        dispatch(nextPageAction(result.Search, { ...search }));
     }
 
     const fetchData = async (search: SearchParams, pageNumber: number) => {
@@ -47,7 +47,7 @@ const MovieSearchView = () => {
                 <MovieList movies={movies} />
             </FlexDiv>
             { 
-                movies &&
+                (movies && movies.length > 0) &&
                     <Container>
                         <InvertedButton onClick={ () => handleMore()}>More...</InvertedButton>
                     </Container>  

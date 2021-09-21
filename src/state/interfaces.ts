@@ -1,11 +1,11 @@
-import { SearchResult } from "../services";
+import { Movie } from "../services";
 
 interface AppState {
-    search: MovieSearchState
+    searchMovies: MovieSearchState
 }
 
 interface MovieSearchState {
-    result: SearchResult,
+    movies: Movie[],
     search: {
         text: string,
         year?: string,

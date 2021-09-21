@@ -1,4 +1,3 @@
-import { SearchResult } from "../../services";
 import { MovieSearchActionTypes, MovieAction } from "../actions";
 import { MovieSearchState } from "../interfaces";
 
@@ -6,16 +5,13 @@ const moviesSearchReducer = (state = initialState, action: MovieAction): MovieSe
     switch (action.type) {
         case MovieSearchActionTypes.SEARCH_MOVIES:
             return ({
-                result: action.payload.result,
+                movies: action.payload.movies,
                 search: action.payload.search
             });
         case MovieSearchActionTypes.NEXT_PAGE:
             return ({
                 ...state,
-                result: {
-                    ...state.result,
-                    Search: [...state.result.Search, ...action.payload.result.Search]
-                }
+                movies: [...state.movies, ...action.payload.movies]
             });
         case MovieSearchActionTypes.DEFAULT:
             return state;
@@ -25,7 +21,7 @@ const moviesSearchReducer = (state = initialState, action: MovieAction): MovieSe
 }
 
 const initialState: MovieSearchState = {
-    result: {} as SearchResult,
+    movies: [],
     search: {
         text: '',
         year: '',
