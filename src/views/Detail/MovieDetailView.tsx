@@ -1,12 +1,14 @@
+import { Icon } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { Button } from "../../components";
 
 import MovieDetail from "../../components/MovieDetail/MovieDetail";
 import { getMovieById, MovieResponse } from "../../services";
 
-
 const DetailView = () => {
+    const history = useHistory();
     const [movie, setMovie] = useState<MovieResponse>();
 
     // Get movie id from url params
@@ -18,9 +20,15 @@ const DetailView = () => {
             .then((movieResponse) => setMovie(movieResponse));
     }, [id]);
 
+    const handleBack = () => history.goBack();
+
     return (
         <Container>
-            <MovieDetail title={movie?.Title}
+            <Button onClick={ () => handleBack() }>
+                <Icon>arrow_back</Icon>
+            </Button>
+            { 
+                movie && <MovieDetail title={movie?.Title}
                          type={movie?.Type}
                          year={movie?.Year}
                          poster={movie?.Poster}
@@ -31,6 +39,8 @@ const DetailView = () => {
                          actors={movie?.Actors}
                          language={movie?.Language}
                          country={movie?.Country}/>
+            }
+            { !movie && <div>Loading...</div> }
         </Container>
     );
 }
