@@ -44,6 +44,7 @@ export const RadioWithLabel = ({id, name, value, children, onChange, selected }:
             <Radio name={name} 
                    id={id} 
                    value={value}
+                   checked={selected}
                    onChange={ e => onChange(e.target.value)}/>
             <Label htmlFor={id} selected={selected}>
                 {children}

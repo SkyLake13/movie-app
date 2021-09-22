@@ -7,8 +7,8 @@ import { Header } from "./components";
 import { store } from './state/store';
 import { AppErrorBoundary } from "./ErrorBoundry";
 
-const MovieSearchView = lazy(() => import('./views/MovieSearch'));
-const MovieDetailView = lazy(() => import('./views/MovieDetailView'));
+const MovieSearchView = lazy(() => import('./views/Search/MovieSearch'));
+const MovieDetailView = lazy(() => import('./views/Detail/MovieDetailView'));
 
 const theme = {
   bg: "#42a5f5",

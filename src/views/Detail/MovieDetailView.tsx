@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
-import MovieDetail from "../components/MovieDetail/MovieDetail";
-import { getMovieById, MovieResponse } from "../services";
+import MovieDetail from "../../components/MovieDetail/MovieDetail";
+import { getMovieById, MovieResponse } from "../../services";
 
 
 const DetailView = () => {

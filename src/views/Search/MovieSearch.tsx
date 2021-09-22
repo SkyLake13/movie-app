@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from 'styled-components';
 
-import { FlexDiv, InvertedButton, MovieList, Search } from "../components";
-import { searchMovies } from "../services";
+import { FlexDiv, InvertedButton, MovieList, Search } from "../../components";
 import { AppState, MovieSearchActionTypes, 
-    MovieSearchState, searchAction, nextPageAction, SearchParams, spinnerPending, spinnerComplete, SpinnerState } from "../state";
+    MovieSearchState, SearchParams, SpinnerState } from "../../state";
+import { nextPage, search as searchMovies } from "./actions";
 
 const MovieSearchView = () => {
     const searchMoviesState = useSelector<AppState, MovieSearchState>(state => state.searchMovies);
@@ -23,30 +23,10 @@ const MovieSearchView = () => {
     }, [dispatch])
 
     // Perform API call for search
-    const handleSearch = async (search: SearchParams) => {
-        dispatch(spinnerPending())
-        const pageNumber = 1;
-        const result = await fetchData(search, pageNumber);
-
-        dispatch(searchAction(result.Search, { ...search }, pageNumber));
-        dispatch(spinnerComplete())
-    }
+    const handleSearch = (search: SearchParams) => dispatch(searchMovies(search));
 
     // Get next page of result
-    const handleMore = async () => {
-        dispatch(spinnerPending())
-        const pageNumber = page + 1;
-        const result = await fetchData(search, pageNumber);
-        
-        dispatch(nextPageAction(result.Search, { ...search }, pageNumber));
-        dispatch(spinnerComplete())
-
-    }
-
-    const fetchData = async (search: SearchParams, pageNumber: number) => {
-        const getPage = searchMovies(search.text, search.year, search.type);
-        return await getPage(pageNumber);
-    }
+    const handleMore = () => dispatch(nextPage(search, page));
 
     return (
         <>
