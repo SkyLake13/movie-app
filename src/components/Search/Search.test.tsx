@@ -1,14 +1,10 @@
 import { Search } from './Search';
-import {render, fireEvent, waitFor, screen} from '@testing-library/react'
+import { render, fireEvent, screen, cleanup } from '@testing-library/react';
 import { SearchParams } from '../../state';
 
 describe('Search', () => {
-    beforeEach(() => {
-
-    });
-
     afterEach(() => {
-
+        cleanup();
     });
 
     it('should render', () => {
